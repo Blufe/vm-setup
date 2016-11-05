@@ -1,0 +1,28 @@
+---
+
+- name: install requirement of latest git
+  apt:
+    name: python-software-properties
+
+- name: add git into apt repo
+  apt_repository:
+    repo: "ppa:git-core/ppa"
+    state: present
+
+- name: install latest git
+  apt:
+    name: git
+    update_cache: yes
+    state: latest
+
+- name: config user name of git
+  git_config:
+    name: user.name
+    value: "{{ git_user }}"
+    scope: global
+
+- name: config user name of git
+  git_config:
+    name: user.email
+    value: "{{ git_email }}"
+    scope: global

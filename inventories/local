@@ -1,0 +1,6 @@
+[localhost]
+127.0.0.1 ansible_connection=local
+[localhost:vars]
+git_user=ykokw
+git_email=0k4w4.yuk1@gmail.com
+
