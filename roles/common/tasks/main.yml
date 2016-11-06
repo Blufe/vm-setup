@@ -21,8 +21,27 @@
     value: "{{ git_user }}"
     scope: global
 
-- name: config user name of git
+- name: config user email of git
   git_config:
     name: user.email
     value: "{{ git_email }}"
     scope: global
+
+- name: Download git-completion.bash
+  get_url:
+    url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+    dest: ~/git-completion.bash
+
+- name: Download git-completion.bash
+  get_url:
+    url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+    dest: ~/git-prompt.sh
+
+- name: Edit bashrc
+  blockinfile:
+    dest: ~/.bashrc
+    block: |
+      . ~/git-completion.bash
+      . ~/git-prompt.sh
+      export GIT_PS1_SHOWDIRTYSTATE=1
+      export PS1='\w$(__git_ps1 " (%s)")\$ '
