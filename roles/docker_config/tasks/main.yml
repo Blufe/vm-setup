@@ -1,0 +1,7 @@
+---
+
+- name: set default network and dns for docker
+  copy: src=daemon.json dest=/etc/docker/daemon.json
+
+- name: restart docker
+  service: name=docker state=restarted

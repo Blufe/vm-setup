@@ -69,6 +69,7 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   config.vm.provision "ansible_local" do |ansible|
+    ansible.galaxy_role_file = "requirements.yml"
     ansible.playbook = "setup.yml"
     ansible.inventory_path = "inventories/local"
     ansible.limit = "localhost"
