@@ -1,1 +1,3 @@
 - src: angstwad.docker_ubuntu
+- src: https://github.com/jlund/ansible-go
+  name: ansible-go
