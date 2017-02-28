@@ -44,7 +44,10 @@
 - name: create directory for configuration file
   file: path=/root/.config/nvim state=directory owner=ubuntu group=ubuntu mode=0755
 
-- name: copy configuration file
-  get_url:
-    url: https://raw.githubusercontent.com/ykokw/dotfiles/master/init.vim
-    dest: /root/.config/nvim/init.vim
+- name: clone dotfiles repository
+  git:
+    repo: https://github.com/ykokw/dotfiles.git
+    dest: /root/dotfiles
+
+- name: copy init.vim from dotfiles repo
+  file: src=/root/dotfiles/init.vim dest=/root/.config/nvim/init.vim state=link remote_src=true
