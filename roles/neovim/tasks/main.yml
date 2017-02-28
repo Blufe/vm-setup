@@ -22,6 +22,9 @@
     path: /usr/bin/nvim
     priority: 60
 
+- name: change directory permission for vim plugin
+  file: path=/home/ubuntu/.cache state=directory owner=ubuntu group=ubuntu mode=0755
+
 - name: create directory for vim plugin
   file: path=/home/ubuntu/.cache/dein state=directory owner=ubuntu group=ubuntu mode=0755
 
@@ -33,6 +36,8 @@
 
 - name: install dein.vim
   shell: ./installer.sh /home/ubuntu/.cache/dein
+  become: true
+  become_user: ubuntu
   args:
     chdir: /home/ubuntu/
 
