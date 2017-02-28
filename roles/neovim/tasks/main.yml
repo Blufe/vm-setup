@@ -23,18 +23,18 @@
     priority: 60
 
 - name: create directory for vim plugin
-  file: path=/home/ubuntu/.cache/dein state=directory owner=ubuntu group=ubuntu mode=0755
+  file: path=/root/.cache/dein state=directory owner=ubuntu group=ubuntu mode=0755
 
 - name: downlaod dein.vim installer
   get_url:
     url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
-    dest: /home/ubuntu/installer.sh
+    dest: /root/installer.sh
     mode: 0755
 
 - name: install dein.vim
-  shell: ./installer.sh /home/ubuntu/.cache/dein
+  shell: ./installer.sh /root/.cache/dein
   args:
-    chdir: /home/ubuntu/
+    chdir: /root/
 
 - name: install neovim client for deoplete.vim
   pip:
@@ -42,9 +42,9 @@
     state: latest
 
 - name: create directory for configuration file
-  file: path=/home/ubuntu/.config/nvim state=directory owner=ubuntu group=ubuntu mode=0755
+  file: path=/root/.config/nvim state=directory owner=ubuntu group=ubuntu mode=0755
 
 - name: copy configuration file
   get_url:
     url: https://raw.githubusercontent.com/ykokw/dotfiles/master/init.vim
-    dest: /home/ubuntu/.config/nvim/init.vim
+    dest: /root/.config/nvim/init.vim
