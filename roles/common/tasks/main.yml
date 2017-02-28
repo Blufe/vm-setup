@@ -30,18 +30,18 @@
 - name: Download git-completion.bash
   get_url:
     url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-    dest: ~/git-completion.bash
+    dest: /home/ubuntu/git-completion.bash
 
 - name: Download git-completion.bash
   get_url:
     url: https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-    dest: ~/git-prompt.sh
+    dest: /home/ubuntu/git-prompt.sh
 
 - name: Edit bashrc
   blockinfile:
-    dest: ~/.bashrc
+    dest: /home/ubuntu/.bashrc
     block: |
-      . ~/git-completion.bash
-      . ~/git-prompt.sh
+      . /home/ubuntu/git-completion.bash
+      . /home/ubuntu/git-prompt.sh
       export GIT_PS1_SHOWDIRTYSTATE=1
       export PS1='\w$(__git_ps1 " (%s)")\$ '
