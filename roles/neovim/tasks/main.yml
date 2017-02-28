@@ -1,0 +1,53 @@
+---
+
+- name: install requirement of neovim
+  apt: name={{ item }} state=present
+  with_items:
+    - software-properties-common
+    - python-dev
+    - python-pip
+    - python3-dev
+    - python3-pip
+
+- name: add apt repository for neovim
+  apt_repository:
+    repo: "ppa:neovim-ppa/unstable"
+
+- name: install neovim
+  apt: name=neovim state=present
+
+- name: set neovim to alternative command of vim
+  alternatives:
+    name: vim
+    path: /usr/bin/nvim
+    priority: 60
+
+- name: create directory for vim plugin
+  file: path=/root/.cache/dein state=directory owner=ubuntu group=ubuntu mode=0755
+
+- name: downlaod dein.vim installer
+  get_url:
+    url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+    dest: /root/installer.sh
+    mode: 0755
+
+- name: install dein.vim
+  shell: ./installer.sh /root/.cache/dein
+  args:
+    chdir: /root/
+
+- name: install neovim client for deoplete.vim
+  pip:
+    name: neovim
+    state: latest
+
+- name: create directory for configuration file
+  file: path=/root/.config/nvim state=directory owner=ubuntu group=ubuntu mode=0755
+
+- name: clone dotfiles repository
+  git:
+    repo: https://github.com/ykokw/dotfiles.git
+    dest: /root/dotfiles
+
+- name: copy init.vim from dotfiles repo
+  file: src=/root/dotfiles/init.vim dest=/root/.config/nvim/init.vim state=link remote_src=true
